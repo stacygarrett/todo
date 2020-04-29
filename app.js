@@ -32,9 +32,9 @@ const listSchema = new mongoose.Schema({
 const Item = mongoose.model('Item', itemsSchema);
 const List = mongoose.model('List', listSchema);
 
-const item1 = new Item({ name: 'Buy Vegetables' });
-const item2 = new Item({ name: 'Make Dinner' });
-const item3 = new Item({ name: 'Do the Dishes' });
+const item1 = new Item({ name: 'Welcome to your To-Do List!' });
+const item2 = new Item({ name: 'Add a new item with the + button.' });
+const item3 = new Item({ name: '<-- Select the box to delete an item.' });
 
 const defaultItems = [ item1, item2, item3 ];
 
@@ -131,7 +131,7 @@ app.get('/about', function(req, res) {
 
 let port = process.env.PORT;
 if (port == null || port == '') {
-	port = 8000;
+	port = 3000;
 }
 
 app.listen(port, function() {
