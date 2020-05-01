@@ -1,26 +1,48 @@
 <%- include("header") -%>
 
-  <div class="box" id="heading">
-    <h1> <%= listTitle %> </h1>
-  </div>
 
-  <div class="box">
-
-   <% newListItems.forEach(item => { %>
-    <form action="/delete" method="post">
-     <div class="item">
+      <div class="box" id="heading">
+      <h1> <%= listTitle %> </h1>
+    </div>
+     
+  <div class="container-all">
+    <div class="container-left">
+    <div class="box">
+    
+      <% newListItems.forEach(item => { %>
+      <form action="/delete" method="POST">
+        <div class="item">
         <input type="checkbox" name="checkbox" value="<%= item._id %>" onChange="this.form.submit()">
-     <p><%= item.name %></p>
-     </div>
-     <input type="hidden" name="listName" value="<%= listTitle %>">
-     </form>
-  <% }) %>
-
-
-      <form class="item" action="/" method="post">
-        <input type="text" name="newItem" placeholder="New Item" autocomplete="off">
-        <button type="submit" name="list" value="<%= listTitle %>">+</button>
+        <p><%= item.name %></p>
+        </div>
+        <input type="hidden" name="listName" value="<%= listTitle %>">
       </form>
+      <% }) %>
+    
+    <form class="item" action="/" method="POST">
+      <input type="text" name="newItem" placeholder="New Item" autocomplete="off">
+      <button class="plus" type="submit" name="list" value="<%= listTitle %>">+</button>
+    </form>
+    </div>
   </div>
+  
+<div class="pages container-right">
+    <div class="box-categories shadow">
+  
+      <form action="/" class="cat-list" method="POST">
+    
+        <div type="text" class="cat-box page-status" name="pageName"><button class="page-btn"><%= pageName %></button></div>
+      </form>
+    
+      <form action="/" method="POST" class="add-new-list">
+        <input class="new-cat" type="text" name="newPage" value="<%= newPageName %>" placeholder="Create List" autocomplete="off">
+        <button class="new-cat-submit" type="submit">+</button>
+      </form>
+      </div>
+    </div>
+
+    </div>
+  </div>
+
 
 <%- include("footer") -%>

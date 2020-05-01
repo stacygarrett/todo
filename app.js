@@ -24,29 +24,63 @@ const itemsSchema = new mongoose.Schema({
 	name: { type: String, required: [ 1 ] }
 });
 
+const pagesSchema = new mongoose.Schema({
+	name: {
+		type: String,
+		required: [ 1 ]
+	},
+	status: Boolean
+});
+
 const listSchema = new mongoose.Schema({
 	name: String,
-	items: [ itemsSchema ]
+	items: [ itemsSchema ],
+	pagesList: [ pagesSchema ]
 });
 
 const Item = mongoose.model('Item', itemsSchema);
 const List = mongoose.model('List', listSchema);
+const Page = mongoose.model('Page', pagesSchema);
+// const PageName = mongoose.model('Pages', pagesSchema);
 
 const item1 = new Item({ name: 'Welcome to your To-Do List!' });
 const item2 = new Item({ name: 'Add a new item with the + button.' });
-const item3 = new Item({ name: '<-- Select the box to delete an item.' });
+const item3 = new Item({ name: '<-- Select the box to delete one.' });
 
 const defaultItems = [ item1, item2, item3 ];
+
+const list1 = new Page({ name: 'Today' });
+const list2 = new Page({ name: 'Work' });
+const list3 = new Page({ name: 'School' });
+
+const defaultLists = [ list1, list2, list3 ];
 
 const dateFunc = function() {
 	return date.getDate();
 };
 
 app.use(express.static('public'));
+app.use(express.static('views'));
+
+app.get('/', function(req, res) {
+	Page.find({}, function(err, foundPages) {
+		if (foundPages.length === 0) {
+			Page.insertMany(defaultLists, function(err) {
+				if (err) {
+					console.log(err);
+				} else {
+					console.log('Successfully added new pages to the PagesDB');
+				}
+			});
+			res.redirect('/');
+		} else {
+			res.render('pages', { pageName: foundPages });
+		}
+	});
+});
 
 app.get('/', function(req, res) {
 	Item.find({}, function(err, foundItems) {
-		// console.log(foundItems);
 		if (foundItems.length === 0) {
 			Item.insertMany(defaultItems, function(err) {
 				if (err) {
@@ -62,18 +96,46 @@ app.get('/', function(req, res) {
 	});
 });
 
+app.get('/about', function(req, res) {
+	res.render('about');
+});
+
+app.get('/:customListName', function(req, res) {
+	const customListName = _.capitalize(req.params.customListName);
+	List.findOne({ name: customListName }, function(err, foundList) {
+		if (!err) {
+			if (!foundList) {
+				const list = new List({
+					name: customListName,
+					items: defaultItems
+				});
+				list.save();
+				res.redirect('/' + customListName);
+			} else if (foundList === 'about') {
+				res.redirect('/about');
+			} else {
+				res.render('list', { listTitle: foundList.name, newListItems: foundList.items });
+			}
+		}
+	});
+});
+
 app.post('/', function(req, res) {
 	const itemName = req.body.newItem;
 	const listName = req.body.list;
-	// console.log(listName);
+	const pageName = req.body.pageName;
+	console.log(pageName);
 	const item = new Item({ name: itemName });
+	const newPage = new Page({ name: pageName });
 	if (listName === dateFunc()) {
 		item.save();
 		res.redirect('/');
 	} else {
-		List.findOne({ name: listName }, function(err, foundList) {
+		List.findOne({ name: listName }, function(err, foundList, foundPages) {
 			foundList.items.push(item);
 			foundList.save();
+			foundPages.newPage.push(newPage);
+			foundPages.save();
 			res.redirect('/' + listName);
 		});
 	}
@@ -100,33 +162,6 @@ app.post('/delete', function(req, res) {
 			}
 		});
 	}
-});
-
-/* app.get('/work', function(req, res) {
-	res.render('list', { listTitle: 'Work List', newListItems: workItems });
-}); */
-
-app.get('/:customListName', function(req, res) {
-	const customListName = _.capitalize(req.params.customListName);
-	List.findOne({ name: customListName }, function(err, foundList) {
-		// console.log(list);
-		if (!err) {
-			if (!foundList) {
-				const list = new List({
-					name: customListName,
-					items: defaultItems
-				});
-				list.save();
-				res.redirect('/' + customListName);
-			} else {
-				res.render('list', { listTitle: foundList.name, newListItems: foundList.items });
-			}
-		}
-	});
-});
-
-app.get('/about', function(req, res) {
-	res.render('about');
 });
 
 let port = process.env.PORT;
