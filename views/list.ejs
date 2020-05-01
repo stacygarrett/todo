@@ -29,13 +29,18 @@
 <div class="pages container-right">
     <div class="box-categories shadow">
   
-      <form action="/" class="cat-list" method="POST">
-    
-        <div type="text" class="cat-box page-status" name="pageName"><button class="page-btn"><%= pageName %></button></div>
+       <form action="/" class="cat-list" method="POST">
+       <button type="text" class="page-btn cat-box page-status" name="pageName" onclick="window.location.href='/'">Today</button>
+         <button class="page-btn cat-box" onclick="window.location.href='/work'">Work</button>
+         <button class="page-btn cat-box" onclick="window.location.href='/school'">School</button>
+         <button class="page-btn cat-box" onclick="window.location.href='/grocery'">Grocery</button>
+         <button class="page-btn cat-box" onclick="window.location.href='/shopping'">Shopping</button>
       </form>
+
+
     
       <form action="/" method="POST" class="add-new-list">
-        <input class="new-cat" type="text" name="newPage" value="<%= newPageName %>" placeholder="Create List" autocomplete="off">
+        <input class="new-cat" type="text" name="newPage"  placeholder="Create List" autocomplete="off">
         <button class="new-cat-submit" type="submit">+</button>
       </form>
       </div>

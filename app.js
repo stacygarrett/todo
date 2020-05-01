@@ -24,24 +24,23 @@ const itemsSchema = new mongoose.Schema({
 	name: { type: String, required: [ 1 ] }
 });
 
+const listSchema = new mongoose.Schema({
+	name: String,
+	items: [ itemsSchema ]
+});
+
 const pagesSchema = new mongoose.Schema({
 	name: {
 		type: String,
 		required: [ 1 ]
 	},
+	lists: [ listSchema ],
 	status: Boolean
-});
-
-const listSchema = new mongoose.Schema({
-	name: String,
-	items: [ itemsSchema ],
-	pagesList: [ pagesSchema ]
 });
 
 const Item = mongoose.model('Item', itemsSchema);
 const List = mongoose.model('List', listSchema);
 const Page = mongoose.model('Page', pagesSchema);
-// const PageName = mongoose.model('Pages', pagesSchema);
 
 const item1 = new Item({ name: 'Welcome to your To-Do List!' });
 const item2 = new Item({ name: 'Add a new item with the + button.' });
@@ -49,11 +48,11 @@ const item3 = new Item({ name: '<-- Select the box to delete one.' });
 
 const defaultItems = [ item1, item2, item3 ];
 
-const list1 = new Page({ name: 'Today' });
-const list2 = new Page({ name: 'Work' });
-const list3 = new Page({ name: 'School' });
+const page1 = new Page({ name: 'Today' });
+const page2 = new Page({ name: 'Work' });
+const page3 = new Page({ name: 'School' });
 
-const defaultLists = [ list1, list2, list3 ];
+const defaultPages = [ page1, page2, page3 ];
 
 const dateFunc = function() {
 	return date.getDate();
@@ -62,10 +61,10 @@ const dateFunc = function() {
 app.use(express.static('public'));
 app.use(express.static('views'));
 
-app.get('/', function(req, res) {
+/* app.get('/', function(req, res) {
 	Page.find({}, function(err, foundPages) {
 		if (foundPages.length === 0) {
-			Page.insertMany(defaultLists, function(err) {
+			Page.insertMany(defaultPages, function(err) {
 				if (err) {
 					console.log(err);
 				} else {
@@ -74,10 +73,10 @@ app.get('/', function(req, res) {
 			});
 			res.redirect('/');
 		} else {
-			res.render('pages', { pageName: foundPages });
+			res.render('page', { pageName: foundPages });
 		}
 	});
-});
+}); */
 
 app.get('/', function(req, res) {
 	Item.find({}, function(err, foundItems) {
