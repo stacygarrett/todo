@@ -1,104 +1,73 @@
 <%- include("header") -%>
 
+<div class="box box-shadow" id="heading">
+    <div class="heading-wrapper">
+        <h1 class="header"> <%= listTitle %></h1>
 
-      <div class="box" id="heading">
-      <h1> <%= listTitle %> </h1>
+        <form action="/deletePages" method="POST">
+            <div class="delete delete-X">
+                <h3>X</h3><button class=" delete delete-list-btn ">Delete List?</button>
+            </div>
+            <input type="hidden" name="pageName" id="placeholderAdd" value="<%= listTitle %>"> </input>
+            <input type="hidden" name="newListItem" value="<%= newListItems %>">
+        </form>
     </div>
-     
-  <div class="container-all">
+</div>
+
+<div class="container-all">
     <div class="container-left">
-    <div class="box">
-    
+        <div class="box box-shadow">
 
+            <% newListItems.forEach(item => { %>
+            <form action="/delete" method="POST">
+                <div class="item">
+                    <input class="input-check" type="checkbox" name="checkbox" value="<%= item._id %>"
+                        onChange="this.form.submit()">
+                    <p><%= item.name %></p>
+                </div>
+                <input type="hidden" name="listName" value="<%= listTitle %>">
+            </form>
+            <% }) %>
 
-      <% newListItems.forEach(item => { %>
-      <form action="/delete" method="POST">
-        <div class="item">
-        <input class="input-check" type="checkbox" name="checkbox" value="<%= item._id %>" onChange="this.form.submit()">
-        <p><%= item.name %></p>
+            <!-- Add new item to to-do list -->
+            <form class="item" action="/" method="POST">
+                <input type="text" name="newItem" placeholder="New Item" autocomplete="off" autofocus>
+                <button class="plus" type="submit" name="list" value="<%= listTitle %>">+</button>
+            </form>
         </div>
-        <input type="hidden" name="listName" value="<%= listTitle %>">
-      </form>
-      <% }) %>
-      
-    
-   <!-- Add new item to to-do list -->
-    <form class="item" action="/" method="POST">
-      <input type="text" name="newItem" placeholder="New Item" autocomplete="off">
-      <button class="plus" type="submit" name="list" value="<%= listTitle %>">+</button>
-    </form>
-    </div>
-  </div>
-  
-<!-- Right Side Dynamic Pages -->
-<div class="pages container-right">
-    <div class="box-categories shadow">
-  
-  <!-- Pages Content -->
-
-  <div class="cat-list-wrapper highlight">
-      
-   <% lists.forEach(list => { %>
-   <form action="/deletePages" method="POST">
-          <button class="cat-box page-btn" name="pageName" onclick="window.location.href='/'">
-          <input class="input-check" type="checkbox" name="checkbox" onChange="this.form.submit()">
-          <!-- <p>Today</p> -->
-          <p><%= list.name %></p>
-          </button>
-          <input type="hidden" name="pageName" value="<%= list.name %>">
-          </form>
-  <% }) %>
-    </div>
-  
-       <!--<button type="text" class="cat-box page-status page-btn" name="pageName" onclick="window.location.href='/'"> Today</button>-->
-      <!-- <div class="cat-list-wrapper highlight">
-       <button class="page-btn cat-box" onclick="location.href='/work'"><input class="input-check cat-box" type="checkbox" name="checkbox" onChange="this.form.submit()">
-       <p>
-         Work
-       </p>
-       </button>
-       <input type="hidden" name="listName" value="<%= listTitle %>">
-    </div>
-         <div class="cat-list-wrapper highlight">
-          
-          <button class="page-btn cat-box" onclick="location.href='/school'"><input class="input-check cat-box" type="checkbox" name="checkbox" onChange="this.form.submit()">
-          <p>
-            School
-          </p>
-          </button>
-          <input type="hidden" name="listName" value="<%= listTitle %>">
-    </div>
-         <div class="cat-list-wrapper highlight">
-          
-          <button class="page-btn cat-box" onclick="location.href='/grocery'"><input class="input-check cat-box" type="checkbox" name="checkbox" onChange="this.form.submit()">
-          <p>
-            Grocery
-          </p>
-          </button>
-          <input type="hidden" name="listName" value="<%= listTitle %>">
-    </div>
-         <div class="cat-list-wrapper highlight">
-          
-          <button class="page-btn cat-box" onclick="location.href='/shopping'"><input class="input-check cat-box" type="checkbox" name="checkbox" onChange="this.form.submit()">
-          <p>
-            Shopping
-          </p>
-          </button>
-          <input type="hidden" name="listName" value="<%= listTitle %>">
-    </div> -->
-
-   
-         
-    
-     <form action="/newpage" method="POST" class="add-new-list">
-        <input class="new-cat" type="text" name="newPage"  placeholder="Create List" autocomplete="off">
-        <button class="new-cat-submit" type="submit">+</button>
-      </form>
-      </div>
     </div>
 
+    <!-- Right Side Dynamic Pages -->
+    <div class="pages container-right">
+        <div id="simpleList" class="box-categories box-shadow">
+
+            <!-- Pages Content -->
+            <form action="/newpage" method="POST" class="add-new-list">
+                <input class="new-cat" type="text" name="newPageInput" placeholder="Create List" autocomplete="off">
+                <button class="new-cat-submit" type="submit" value="<%= listTitle %>">+</button>
+            </form>
+                <button class="cat-box page-btn" name="pageName" onclick="window.location.href='/'"><a href="/"></a>
+                <p>Today</p>
+            </button>
+            <input type="hidden" name="pageName">
+
+
+            <% pageLists.forEach(function(list) { %>
+            <div class="cat-list-wrapper highlight">
+                <button class="cat-box page-btn dynamic" name="pageName"
+                    onclick="window.location.href='/<%= list.name %>'">
+                    <p><%= list.name %></p>
+                    <input type="hidden" name="pageName" value="<%= list.name %>">
+            </div>
+            <% }) %>
+
+        
+
+        </div>
     </div>
-  </div>
+
+</div>
+</div>
 
 
 <%- include("footer") -%>

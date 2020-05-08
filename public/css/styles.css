@@ -11,7 +11,8 @@ html {
 
 h1 {
 	color: #fff;
-	padding: 10px;
+	padding: 5px;
+	margin: 0;
 }
 
 h2 {
@@ -31,8 +32,11 @@ h2 {
 	margin-top: 50px;
 	margin-left: 30px;
 	width: 250px;
+	max-height: 500px;
 	border-radius: 5px;
 	background-color: #ccfaff;
+	overflow: hidden;
+	overflow-y: scroll;
 }
 
 .about-p {
@@ -40,11 +44,10 @@ h2 {
 }
 
 .box {
-	max-width: 400px;
+	max-width: 600px;
 	margin: 50px auto;
 	background: white;
 	border-radius: 5px;
-	box-shadow: 5px 5px 15px -5px rgba(0, 0, 0, 0.3);
 }
 
 #heading {
@@ -52,9 +55,82 @@ h2 {
 	text-align: center;
 }
 
+.heading-wrapper {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	height: 70px;
+}
+.header {
+	margin: auto;
+}
+/* .heading:hover {
+	position: relative;
+	left: -20px;
+} */
+
+.delete-X > h3 {
+	color: #7c979a95;
+	cursor: pointer;
+	margin-left: 5px;
+	/* height: 100%; */
+}
+
+.delete-X {
+	/* display: none; */
+	/* color: #7c979a95; */
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	position: relative;
+	/* left: 86px; */
+	width: 70px;
+	height: 70px;
+	background-color: #29c2d3;
+	text-align: center;
+	font-size: 2rem;
+	font-weight: 700;
+	border-radius: 0 5px 5px 0;
+	color: #a9eff795;
+	padding-left: 25px;
+}
+
+.delete-X:hover > h3 {
+	display: none;
+}
+
+button.delete {
+	border: none;
+}
+
+.delete-list-btn {
+	display: none;
+	position: relative;
+	left: -62px;
+	background-color: #29c2d3;
+	border-radius: 0 5px 5px 0;
+	height: 70px;
+	font-size: 1.2rem;
+	color: #3a9ba5;
+	padding: 10px 40px;
+}
+
+.delete-X:hover .delete-list-btn {
+	display: block;
+	transition: all 300ms;
+	transition-timing-function: ease-in;
+	/* position: relative; */
+	/* z-index: 10; */
+}
+
 .logo {
 	display: block;
 	margin: 50px auto -20px;
+}
+
+.box-shadow {
+	box-shadow: 5px 5px 15px -8px rgba(0, 0, 0, 0.3);
 }
 
 .shadow {
@@ -65,7 +141,7 @@ h2 {
 
 .item {
 	min-height: 70px;
-	width: 400px;
+	min-width: 400px;
 	display: flex;
 	align-items: center;
 	border-bottom: 1px solid #f1f1f1;
@@ -75,15 +151,6 @@ h2 {
 	border-bottom: 0;
 }
 
-/* .input-check {
-	border-radius: 50%;
-	width: 20px;
-	height: 20px;
-	display: inline-block;
-	position: relative;
-	z-index: 1;
-}
- */
 input:checked + p {
 	text-decoration: line-through;
 	text-decoration-color: #22cbdd;
@@ -99,7 +166,7 @@ p {
 	padding: 20px;
 	font-size: 20px;
 	font-weight: 200;
-	color: #2f2f2f;
+	color: #656565;
 }
 
 form.item {
@@ -120,8 +187,8 @@ button.plus {
 }
 
 button:focus {
-	outline-width: 1px;
-	outline-color: #46dff0;
+	outline-width: .5px;
+	outline-color: #90f0fa;
 }
 
 input[type="text"] {
@@ -169,24 +236,17 @@ footer {
 	margin-bottom: 0;
 }
 
-.cat-list-wrapper {
-	/* display: flex; */
-	/* flex-direction: row;
-	justify-content: space-around;
-	align-items: center; */
-	border-bottom: 1px solid #cecece85;
-}
-
 .page-btn {
 	background-color: #ccfaff;
 	border: none;
 	display: flex;
 	/* justify-content: center; */
-	align-items: center;
+	/* align-items: center; */
+	/* align-content: left; */
 	/* border-bottom: 1px solid #cecece85; */
 	margin: 0 auto;
 	/* padding: 20px; */
-	padding-left: 20px;
+	padding-left: 50px;
 	text-align: center;
 	font-family: inherit;
 	font-size: 18px;
@@ -197,7 +257,7 @@ footer {
 }
 
 .cat-box {
-	border-bottom: .5px solid #d5d5d5;
+	border-top: .5px solid #d5d5d5;
 }
 
 /* .today-main {
@@ -227,10 +287,10 @@ input[type="text"].new-cat {
 	text-align: center;
 	height: 68px;
 	border: none;
-	font-size: 18px;
+	font-size: 20px;
 	font-weight: 200;
 	color: rgb(101, 101, 101);
-	width: 204px;
+	width: 200px;
 	/* margin-left: -10px; */
 }
 
@@ -250,7 +310,7 @@ button.new-cat-submit {
 	border-radius: 50%;
 	height: 40px;
 	width: 40px;
-	border-color: transparent;
+	border: none;
 	font-size: 26px;
 	padding-bottom: 6px;
 	border-width: 0;
@@ -259,6 +319,7 @@ button.new-cat-submit {
 
 .add-new-list {
 	display: flex;
+	/* border-bottom: .5px solid #d5d5d5; */
 }
 
 /* About Page */
@@ -291,19 +352,26 @@ button.new-cat-submit {
 	html {
 		background-image: -webkit-linear-gradient(65deg, #14b1c2, #e5fbfe 95%);
 	}
+	.logo {
+		margin: 30px auto 0;
+	}
 	.box {
+		margin-top: 30px;
 		max-width: 85%;
 	}
 	.item {
 		height: 50px;
+		min-width: unset;
 	}
 	h1 {
 		font-size: 30px;
 	}
+
 	p,
 	input[type="text"] {
 		font-size: 18px;
 		width: 250px;
+		margin: 0px;
 	}
 	.plus {
 		height: 30px;
@@ -311,5 +379,12 @@ button.new-cat-submit {
 	}
 	form.item {
 		width: 85%;
+	}
+	.container-right {
+		max-width: 90%;
+	}
+
+	.page-btn {
+		padding-left: 0;
 	}
 }
