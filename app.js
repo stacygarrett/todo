@@ -44,8 +44,9 @@ const List = mongoose.model('Lists', listSchema);
 const item1 = new Item({ name: 'Welcome to your To-Do List!' });
 const item2 = new Item({ name: 'Add a new item with the + button.' });
 const item3 = new Item({ name: '<-- Select the box to delete one.' });
+const item4 = new Item({ name: '<-- Select the box to delete one.' });
 
-const defaultItems = [ item1, item2, item3 ];
+const defaultItems = [ item1, item2, item3, item4 ];
 
 const day = date.getDate();
 
