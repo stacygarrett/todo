@@ -8,7 +8,8 @@ let port = process.env.PORT;
 if (port == null || port == '') {
 	port = 3000;
 }
-
+const connectionString =
+	'mongodb+srv://admin-stacy:FaHq0YY069fl6gqS@cluster0-zj8ei.mongodb.net/todolistDB?retryWrites=true&w=majority';
 const app = express();
 
 app.set('view engine', 'ejs');
@@ -22,11 +23,11 @@ mongoose.connect('mongodb://localhost:27017/todolistDB', {
 	useFindAndModify: false
 });
 
-/* mongoose.connect(connectionString, {
+mongoose.connect(connectionString, {
 	useNewUrlParser: true,
 	useUnifiedTopology: true,
 	useFindAndModify: false
-}); */
+});
 
 const itemsSchema = new mongoose.Schema({
 	name: { type: String, required: [ 1 ] }
@@ -50,13 +51,13 @@ const day = date.getDate();
 
 app.use(express.static('public'));
 
-app.use(function(req, res, next) {
+/* app.use(function(req, res, next) {
 	if (req.originalUrl && req.originalUrl.split('/').pop() === 'favicon.ico') {
 		return res.sendStatus(204);
 	}
 	return next();
 });
-
+ */
 app.get('/', function(req, res) {
 	let newPageInput = '';
 	List.find({}, function(err, lists) {
