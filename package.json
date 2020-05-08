@@ -18,5 +18,8 @@
 		"lodash": "^4.17.15",
 		"mongoose": "^5.9.10",
 		"sortablejs": "^1.10.2"
+	},
+	"devDependencies": {
+		"@types/sortablejs": "^1.10.4"
 	}
 }
