@@ -168,7 +168,7 @@ form.item {
 button.plus {
 	min-height: 50px;
 	width: 50px;
-	border-radius: 50%;
+	border-radius: 50%/50%;
 	border-color: transparent;
 	background-color: #22cbdd;
 	color: #fff;
@@ -283,7 +283,7 @@ button.new-cat-submit {
 	background-color: #66ecfa;
 	margin-left: -20px;
 	color: #fff;
-	border-radius: 50%;
+	border-radius: 50%/50%;
 	height: 40px;
 	width: 40px;
 	border: none;
