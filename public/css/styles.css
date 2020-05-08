@@ -176,6 +176,7 @@ button.plus {
 	padding-bottom: 6px;
 	border-width: 0;
 	margin: 0 20px;
+	text-align: center;
 }
 
 button:focus {
@@ -387,8 +388,8 @@ button.new-cat-submit {
 		margin: 0px;
 	}
 	button.plus {
-		min-height: 50px;
-		min-width: 50px;
+		min-height: 40px;
+		min-width: 40px;
 		margin-left: 15%;
 		margin-right: 2%;
 	}
@@ -402,8 +403,8 @@ button.new-cat-submit {
 		width: 185px;
 	}
 	button.new-cat-submit {
-		height: 40px;
-		width: 40px;
+		height: 35px;
+		width: 35px;
 	}
 	.page-btn {
 		padding-left: 0;
