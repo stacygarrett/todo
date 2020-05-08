@@ -388,7 +388,8 @@ button.new-cat-submit {
 	}
 	button.plus {
 		min-height: 50px;
-		margin-left: 5%;
+		min-width: 50px;
+		margin-left: 15%;
 		margin-right: 2%;
 	}
 	form.item {
@@ -401,7 +402,8 @@ button.new-cat-submit {
 		width: 185px;
 	}
 	button.new-cat-submit {
-		margin-right: unset;
+		height: 40px;
+		width: 40px;
 	}
 	.page-btn {
 		padding-left: 0;
