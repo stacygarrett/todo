@@ -3,4 +3,3 @@ npm-debug.log
 .DS_Store
 /*.env
 /backups
-/public/js/sortable.js
